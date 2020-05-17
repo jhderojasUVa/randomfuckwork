@@ -2,6 +2,8 @@
     {
       "string": "life"
     }, {
+      "string": "life"
+    },{
       "string": "work"
     }, {
         "string": "you"
@@ -49,5 +51,15 @@
         "string": "looser"
     }, {
         "string": "winner"
+    }, {
+        "string": "food"
+    }, {
+        "string": "nature"
+    }, {
+        "string": "onions"
+    }, {
+        "string": "clean"
+    }, {
+        "string": "puzzle"
     }
   ]

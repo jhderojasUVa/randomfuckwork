@@ -1,5 +1,7 @@
 # Random F*ck in something
 
+![Example of running application](example.png)
+
 Random f*ck generator for creting discussion at your online world.
 
 This "tool" will help you to start a discussion in your social network about something everyday.
