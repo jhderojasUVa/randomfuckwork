@@ -6,6 +6,7 @@ function App() {
   const [data, setData] = useState([]);
   const [color, setColor] = useState('dark');
   const [wikipedia, setWikipedia] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   function pageReload() {
     reDo();
@@ -31,6 +32,7 @@ function App() {
 
   function reDo() {
     if (wikipedia === true) {
+      setLoading(true);
       fechWikiPediaData();
     } else if (wikipedia === false) {
       fetchData();
@@ -52,6 +54,7 @@ function App() {
     const stringTitle = {string: dataFetched.data.title};
 
     setData([stringTitle]);
+    setLoading(false);
   }
 
   const fetchData = async () => {
@@ -66,7 +69,11 @@ function App() {
     randomData = data[Math.floor(Math.random() * data.length)].string;
   } else if (wikipedia === true) {
     randomData = data[0].string;
+  } else if (isLoading === true) {
+    randomData = 'loading...'
   }
+
+  let isVisible = isLoading == true ? 'visibilityYes' : 'visibilityNo';
   
   let appClass = 'App-header ' + color;
   return (
@@ -84,6 +91,9 @@ function App() {
           FUCK <strong>{randomData}</strong>
         </p>
       </header>
+      <div className="App-loading">
+        <img className={isVisible} src="images/loading.gif" width="100" alt="loading... please wait!"/>
+      </div>
     </div>
   );
 }

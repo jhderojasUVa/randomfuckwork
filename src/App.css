@@ -62,6 +62,22 @@
   color: #61dafb;
 }
 
+.App-loading {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.App-loading .visibilityNo {
+  transition: all 0.5s;
+  opacity: 0;
+}
+
+.App-loading .visibilityYes {
+  transition: all 0.5s;
+  opacity: 1;
+}
+
 p {
   cursor: pointer;
 }
