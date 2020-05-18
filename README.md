@@ -24,6 +24,5 @@ You will see in what you can begin with.
 
 This is a hobby application so don't wait until great updates... but I have the idea of:
 
-* Use wikipedia API to take a new word
 * Use a timer to change the word every... I don't know minutes/hours
 * Use several word databases (if I found some) or update the json file

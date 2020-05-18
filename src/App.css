@@ -2,21 +2,32 @@
   text-align: center;
 }
 
-.App-mode {
+.App-mode, .App-where {
   position: absolute;
   top: 0;
-  right: 0;
   padding: 10px;
   margin: 10px auto;
 }
 
-.App-mode .dark {
+.App-mode {
+  right: 0;
+}
+
+.App-where {
+  left: 0;
+}
+
+.App-mode:hover, .App-where:hover {
+  background-color: darkorange;
+}
+
+.App-mode .dark, .App-where .dark {
   color: white;
   margin: 0;
   padding: 0;
 }
 
-.App-mode .light {
+.App-mode .light, .App-where .light {
   color: black;
   margin: 0;
   padding: 0;
