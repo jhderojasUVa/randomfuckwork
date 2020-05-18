@@ -8,10 +8,7 @@ function App() {
   const [wikipedia, setWikipedia] = useState(false);
   const [itscalled, setItscalled] = useState(true);
 
-  const [loading, setLoading] = useState(true);
-
   function pageReload() {
-    setLoading(true);
     setItscalled(false);
     reDo();
   }
@@ -20,11 +17,13 @@ function App() {
     if (wikipedia === true) {
       setWikipedia(false);
       setItscalled(false);
-      setLoading(true);
+
+      fechWikiPediaData();
     } else {
       setWikipedia(true);
       setItscalled(false);
-      setLoading(true);
+
+      fetchData();
     }
   }
 
@@ -62,24 +61,23 @@ function App() {
     const stringTitle = {string: dataFetched.data.title};
 
     setData([stringTitle]);
-    setLoading(false);
   }
 
   const fetchData = async () => {
     const dataFetched = await axios.get('storage/arraystorage.json');
 
     setData(dataFetched.data);
-    setLoading(false);
   } 
 
-  let randomData;
+  let randomData = '(click again)';
 
-  if (data.length > 0) {
+  if (data.length > 0 && wikipedia === false) {
     randomData = data[Math.floor(Math.random() * data.length)].string;
+  } else if (wikipedia === true) {
+    randomData = data[0].string;
   }
   
   let appClass = 'App-header ' + color;
-  console.log(loading,wikipedia)
   return (
     <div className="App">
       <div className="App-where">
