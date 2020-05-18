@@ -2,7 +2,7 @@
     {
       "string": "life"
     }, {
-      "string": "life"
+      "string": "love"
     },{
       "string": "work"
     }, {
@@ -44,6 +44,8 @@
     }, {
         "string": "sun"
     }, {
+        "string": "stars"
+    }, {
         "string": "country"
     }, {
         "string": "jobless"
@@ -63,5 +65,45 @@
         "string": "puzzle"
     }, {
         "string": "friend"
+    }, {
+        "string": "day"
+    }, {
+        "string": "night"
+    }, {
+        "string": "evening"
+    }, {
+        "string": "car"
+    }, {
+        "string": "bike"
+    }, {
+        "string": "motorbike"
+    }, {
+        "string": "breakfast"
+    }, {
+        "string": "lunch"
+    }, {
+        "string": "dinner"
+    }, {
+        "string": "plane"
+    }, {
+        "string": "carrot"
+    }, {
+        "string": "orange"
+    }, {
+        "string": "apple"
+    }, {
+        "string": "pear"
+    }, {
+        "string": "melon"
+    }, {
+        "string": "3D"
+    }, {
+        "string": "tv"
+    }, {
+        "string": "dvd"
+    }, {
+        "string": "radio"
+    }, {
+        "string": "everything"
     }
   ]
