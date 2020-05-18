@@ -1,6 +1,6 @@
 {
   "name": "fuck",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Fuck generator... fuck in something every different every time",
   "private": true,
   "dependencies": {
