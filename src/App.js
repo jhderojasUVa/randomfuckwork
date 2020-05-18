@@ -83,11 +83,11 @@ function App() {
   }
 
   // Show or hide (by CSS style) the loading image
-  let isVisible = isLoading == true ? 'visibilityYes' : 'visibilityNo';
+  let isVisible = isLoading === true ? 'visibilityYes' : 'visibilityNo';
   
   // Change the theme
   let appClass = 'App-header ' + color;
-  
+
   return (
     <div className="App">
       <div className="App-menu">
