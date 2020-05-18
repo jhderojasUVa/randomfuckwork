@@ -80,11 +80,13 @@ function App() {
   let appClass = 'App-header ' + color;
   return (
     <div className="App">
-      <div className="App-where">
-        <p className={color} onClick={changeFrom}>{wikipedia ? 'Wikipedia' : 'Internal'}</p>
-      </div>
-      <div className="App-mode">
-        <p className={color} onClick={changeMode}>{color.toUpperCase()} mode</p>
+      <div className="App-menu">
+        <div className="App-where">
+          <p className={color} onClick={changeFrom}>{wikipedia ? 'Wikipedia' : 'Internal'}</p>
+        </div>
+        <div className="App-mode">
+          <p className={color} onClick={changeMode}>{color.toUpperCase()} mode</p>
+        </div>
       </div>
       <header className={appClass}>
         <p onClick={pageReload}>

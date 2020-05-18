@@ -2,19 +2,18 @@
   text-align: center;
 }
 
-.App-mode, .App-where {
+.App-menu {
   position: absolute;
   top: 0;
-  padding: 10px;
-  margin: 10px auto;
-}
-
-.App-mode {
   right: 0;
 }
 
-.App-where {
-  left: 0;
+.App-mode, .App-where {
+  display: inline-block; 
+  padding: 10px;
+  margin: 10px auto;
+  margin-right: 0.25rem;
+  transition: all 0.4s
 }
 
 .App-mode:hover, .App-where:hover {
@@ -31,6 +30,10 @@
   color: black;
   margin: 0;
   padding: 0;
+}
+
+.App-mode:hover p, .App-where:hover p {
+  color: white;
 }
 
 .App-header.dark {

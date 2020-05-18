@@ -22,9 +22,9 @@ You will see in what you can begin with.
 
 ## New word, new colors
 
-You can go to another word by clicking on the "Fuck *****" part.
+You can ask for a new word or change from the local json respository to a random work from Wikipedia by clicking on the menu at top right. Easy.
 
-You can, also, change from 'dark' to 'light' mode by clicking on the upper right or change from 'local database' to 'wikipedia mode' on the upper left.
+It have some bugs now... but don't worry.
 
 ## Future updates
 
