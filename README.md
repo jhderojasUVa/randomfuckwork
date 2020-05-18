@@ -20,6 +20,12 @@ It's an easy React app, so it´s simple.
 
 You will see in what you can begin with.
 
+## New work
+
+You can go to another word by clicking on the "Fuck *****" part.
+
+You can, also, change from 'dark' to 'light' mode by clicking on the upper right or change from 'local database' to 'wikipedia mode' on the upper left.
+
 ## Future updates
 
 This is a hobby application so don't wait until great updates... but I have the idea of:
