@@ -27,5 +27,3 @@ This is a hobby application so don't wait until great updates... but I have the 
 * Use wikipedia API to take a new word
 * Use a timer to change the word every... I don't know minutes/hours
 * Use several word databases (if I found some) or update the json file
-* Different colors, different background, different whatever
-* So, light mode? xD

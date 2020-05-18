@@ -4,6 +4,19 @@ import './App.css';
 
 function App() {
   const [data, setData] = useState([]);
+  const [color, setColor] = useState('dark');
+
+  function pageReload() {
+    window.location.reload();
+  }
+
+  function changeMode() {
+    if (color == 'dark') {
+      setColor('light');
+    } else {
+      setColor('dark');
+    }
+  }
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,10 +33,14 @@ function App() {
     randomData = data[Math.floor(Math.random() * data.length)].string;
   }
   
+  let appClass = 'App-header ' + color;
   return (
     <div className="App">
-      <header className="App-header">
-        <p>
+      <div className="App-mode" onClick={changeMode}>
+        <p className={color}>{color.toUpperCase()} mode</p>
+      </div>
+      <header className={appClass}>
+        <p onClick={pageReload}>
           FUCK <strong>{randomData}</strong>
         </p>
       </header>
