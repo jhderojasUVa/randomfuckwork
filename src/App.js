@@ -3,15 +3,18 @@ import axios from 'axios';
 import './App.css';
 
 function App() {
+  // States
   const [data, setData] = useState([]);
   const [color, setColor] = useState('dark');
   const [wikipedia, setWikipedia] = useState(false);
   const [isLoading, setLoading] = useState(false);
 
+  // Reload function
   function pageReload() {
     reDo();
   }
   
+  // Change from wikipedia to internal json
   function changeFrom() {
     if (wikipedia === true) {
       setWikipedia(false);
@@ -22,6 +25,7 @@ function App() {
     }
   }
 
+  // Change from dark to light theme
   function changeMode() {
     if (color === 'dark') {
       setColor('light');
@@ -30,6 +34,7 @@ function App() {
     }
   }
 
+  // Reload function (one who do the calls)
   function reDo() {
     if (wikipedia === true) {
       setLoading(true);
@@ -39,6 +44,7 @@ function App() {
     }
   }
 
+  // React hook for default start
   useEffect(() => {
     const fetchData = async () => {
       const dataFetched = await axios.get('storage/arraystorage.json');
@@ -48,6 +54,7 @@ function App() {
     fetchData();
   }, []);
   
+  // Fetch wikipedia data
   const fechWikiPediaData = async () => {
     const dataFetched = await axios.get('https://en.wikipedia.org/api/rest_v1/page/random/summary');
 
@@ -57,6 +64,7 @@ function App() {
     setLoading(false);
   }
 
+  // Fetch JSON data
   const fetchData = async () => {
     const dataFetched = await axios.get('storage/arraystorage.json');
 
@@ -65,6 +73,7 @@ function App() {
 
   let randomData;
 
+  // Select a random word or returned from Wikipedia
   if (data.length > 0 && wikipedia === false) {
     randomData = data[Math.floor(Math.random() * data.length)].string;
   } else if (wikipedia === true) {
@@ -73,9 +82,12 @@ function App() {
     randomData = 'loading...'
   }
 
+  // Show or hide (by CSS style) the loading image
   let isVisible = isLoading == true ? 'visibilityYes' : 'visibilityNo';
   
+  // Change the theme
   let appClass = 'App-header ' + color;
+  
   return (
     <div className="App">
       <div className="App-menu">
