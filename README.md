@@ -13,6 +13,7 @@ It's an easy React app, so it´s simple.
 
 - Clone it
 - Open a terminal and go to the directory
+- yarn install or npm install
 - yarn start or npm start (whatever is best for you)
 - Wait
 - Wait
