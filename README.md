@@ -11,10 +11,10 @@ This "tool" will help you to start a discussion in your social network about som
 
 It's an easy React app, so it´s simple.
 
-- Clone it
-- Open a terminal and go to the directory
-- yarn install or npm install
-- yarn start or npm start (whatever is best for you)
+- Clone it by using `git clone https://github.com/jhderojasUVa/randomfuckwork.git`
+- `cd randomfuckwork`
+- `yarn install` or `npm install`
+- `yarn start` or `npm start` (whatever is best for you)
 - Wait
 - Wait
 - Wait
@@ -40,3 +40,4 @@ This is a hobby application so don't wait until great updates... but I have the 
 * Use several word databases (if I found some) or update the json file
 * Use the browser language for the Wikipedia
 * A way to update the local storage of words
+* Mobile app version? xD
