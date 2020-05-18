@@ -20,7 +20,7 @@ It's an easy React app, so it´s simple.
 
 You will see in what you can begin with.
 
-## New work
+## New word, new colors
 
 You can go to another word by clicking on the "Fuck *****" part.
 
