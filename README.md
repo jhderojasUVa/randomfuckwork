@@ -1,6 +1,7 @@
 # Random F*ck in something
 
-![Example of running application](example.png)
+![Example of running application in light mode](example.png)
+![Example of running application in dark mode](example_dark.png)
 
 Random f*ck generator for creting discussion at your online world.
 
