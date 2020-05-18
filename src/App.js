@@ -6,24 +6,18 @@ function App() {
   const [data, setData] = useState([]);
   const [color, setColor] = useState('dark');
   const [wikipedia, setWikipedia] = useState(false);
-  const [itscalled, setItscalled] = useState(true);
 
   function pageReload() {
-    setItscalled(false);
     reDo();
   }
   
   function changeFrom() {
     if (wikipedia === true) {
       setWikipedia(false);
-      setItscalled(false);
-
-      fechWikiPediaData();
+      pageReload();
     } else {
       setWikipedia(true);
-      setItscalled(false);
-
-      fetchData();
+      pageReload();
     }
   }
 
@@ -36,12 +30,10 @@ function App() {
   }
 
   function reDo() {
-    if (wikipedia === true && itscalled === false) {
+    if (wikipedia === true) {
       fechWikiPediaData();
-      setItscalled(true);
-    } else if (wikipedia === false && itscalled === false) {
+    } else if (wikipedia === false) {
       fetchData();
-      setItscalled(true);
     }
   }
 
@@ -52,7 +44,6 @@ function App() {
       setData(dataFetched.data);
     }
     fetchData();
-    setItscalled(true);
   }, []);
   
   const fechWikiPediaData = async () => {
@@ -69,7 +60,7 @@ function App() {
     setData(dataFetched.data);
   } 
 
-  let randomData = '(click again)';
+  let randomData;
 
   if (data.length > 0 && wikipedia === false) {
     randomData = data[Math.floor(Math.random() * data.length)].string;
