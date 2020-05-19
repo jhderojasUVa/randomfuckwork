@@ -43,6 +43,7 @@
 
 .App-header p {
   transition: all 0.4s;
+  transition: font-size 0.2s;
 }
 
 .App-header.dark {
