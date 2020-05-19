@@ -13,7 +13,8 @@
   padding: 10px;
   margin: 10px auto;
   margin-right: 0.25rem;
-  transition: all 0.4s
+  transition: all 0.4s;
+  cursor: pointer;
 }
 
 .App-mode:hover, .App-where:hover {

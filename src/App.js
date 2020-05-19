@@ -71,7 +71,7 @@ function App() {
     setData(dataFetched.data);
   } 
 
-  let randomData;
+  let randomData = '';
 
   // Select a random word or returned from Wikipedia
   if (data.length > 0 && wikipedia === false) {
@@ -88,18 +88,23 @@ function App() {
   // Change the theme
   let appClass = 'App-header ' + color;
 
+  // Font size
+  let fontSize = {
+    fontSize: 'calc(100px - ' + randomData.length  + 'px)'
+  }
+
   return (
     <div className="App">
       <div className="App-menu">
-        <div className="App-where">
-          <p className={color} onClick={changeFrom}>{wikipedia ? 'Wikipedia' : 'Internal'}</p>
+        <div className="App-where" onClick={changeFrom}>
+          <p className={color}>{wikipedia ? 'Wikipedia' : 'Internal'}</p>
         </div>
-        <div className="App-mode">
-          <p className={color} onClick={changeMode}>{color.toUpperCase()} mode</p>
+        <div className="App-mode" onClick={changeMode}>
+          <p className={color}>{color.toUpperCase()} mode</p>
         </div>
       </div>
       <header className={appClass}>
-        <p onClick={pageReload}>
+        <p onClick={pageReload} style={fontSize}>
           FUCK <strong>{randomData}</strong>
         </p>
       </header>

@@ -40,8 +40,7 @@ If you want to add new words, open the file `public/storage/arraystorage.json` a
       "string": "love"
     },{
       "string": "work"
-    },
-    ...
+    }
 ]
 ```
 
@@ -57,6 +56,13 @@ By default the app uses a dark theme. You can change from dark to light (it's th
 
 A small transition (for your eyes) will change the theme mode.
 
+## Updates/Included
+
+- Added click to show a new word
+- Added wikipedia support
+- Added dark/light theme support
+- Added change font size depending of the letters
+
 ## Future updates
 
 This is a hobby application so don't wait until great updates... but I have the idea of:
@@ -64,7 +70,6 @@ This is a hobby application so don't wait until great updates... but I have the 
 * Use a timer to change the word every... I don't know minutes/hours
 * Use several word databases (if I found some) or update the json file
 * Use the browser language for the Wikipedia
-* Change the size of the word according the quantity of text
 * A way to update the local storage of words
 * Mobile app version? xD
 * Share it with other person! (needs id or at least unique word)
