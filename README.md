@@ -41,3 +41,7 @@ This is a hobby application so don't wait until great updates... but I have the 
 * Use the browser language for the Wikipedia
 * A way to update the local storage of words
 * Mobile app version? xD
+
+## Release
+
+- v1.0.0 released https://github.com/jhderojasUVa/randomfuckwork/tree/v1.0.0
