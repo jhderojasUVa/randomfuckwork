@@ -36,6 +36,14 @@
   color: white;
 }
 
+.App-header {
+  transition: background-color 0.2s;
+}
+
+.App-header p {
+  transition: all 0.4s;
+}
+
 .App-header.dark {
   background-color: black;
   min-height: 100vh;
