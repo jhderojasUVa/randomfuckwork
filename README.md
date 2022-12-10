@@ -7,6 +7,10 @@ Random f*ck generator for creting discussion at your online world.
 
 This "tool" will help you to start a discussion in your social network about something everyday.
 
+## Try it
+
+You can view and use life at http://www.randomfuck.uk/
+
 ## Use
 
 It's an easy React app, so it´s simple.
