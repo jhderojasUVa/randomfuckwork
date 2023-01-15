@@ -22,7 +22,7 @@
   "scripts": {
     "clean": "rimraf build",
     "start": "react-scripts start",
-    "build": "rimraf build && env-cmd -f .env react-scripts build",
+    "build": "rimraf build && react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "semantic-release": "semantic-release"
