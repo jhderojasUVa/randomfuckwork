@@ -11,10 +11,11 @@
     "env-cmd": "^10.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "react-scripts": "5.0.1",
+    "react-scripts": "^5.0.1",
     "rimraf": "^4.0.5"
   },
   "scripts": {
+    "clean": "rimraf build",
     "start": "react-scripts start",
     "build": "rimraf build && env-cmd -f .env react-scripts build",
     "test": "react-scripts test",
