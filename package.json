@@ -1,8 +1,12 @@
 {
   "name": "fuck",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Fuck generator... fuck in something every different every time",
   "private": true,
+  "engines": {
+    "node": "^18.13.0",
+    "yarn": "^1.22.19"
+  },
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
@@ -12,14 +16,16 @@
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-scripts": "^5.0.1",
-    "rimraf": "^4.0.5"
+    "rimraf": "^4.0.5",
+    "semantic-release": "^20.0.2"
   },
   "scripts": {
     "clean": "rimraf build",
     "start": "react-scripts start",
     "build": "rimraf build && env-cmd -f .env react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "semantic-release": "semantic-release"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,5 +41,12 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jhderojasUVa/randomfuckwork.git"
+  },
+  "devDependencies": {
+    "semantic-release": "^20.0.2"
   }
 }
