@@ -11,14 +11,18 @@ This "tool" will help you to start a discussion in your social network about som
 
 You can view and use life at http://www.randomfuck.uk/
 
+## Yarn
+
+This repository is managed by yarn!.
+
 ## Use
 
 It's an easy React app, so it´s simple.
 
 - Clone it by using `git clone https://github.com/jhderojasUVa/randomfuckwork.git`
 - `cd randomfuckwork`
-- `yarn install` or `npm install`
-- `yarn start` or `npm start` (whatever is best for you)
+- `yarn install`
+- `yarn start` (whatever is best for you)
 - Wait
 - Wait
 - Wait
