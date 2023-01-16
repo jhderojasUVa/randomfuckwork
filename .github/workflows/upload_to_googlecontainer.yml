@@ -13,6 +13,9 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
+      - shell: bash
+        env:
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
       # Get repo
       - uses: actions/checkout@v2
       # Use and setup Node and build
@@ -26,9 +29,6 @@ jobs:
       # Build
       - name: Build
         run: yarn build
-      # Set GH Token for semantic release
-      - name: Set token for semantic release
-        run: export GH_TOKEN=${{ secrets.GH_TOKEN }}
       # Versioning
       - name: Versioning
         run: yarn semantic-release
