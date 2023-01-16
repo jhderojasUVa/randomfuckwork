@@ -13,9 +13,6 @@ jobs:
       matrix:
         node-version: [18.x]
     steps:
-      - shell: bash
-        env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
       # Get repo
       - uses: actions/checkout@v2
       # Use and setup Node and build
@@ -31,5 +28,7 @@ jobs:
         run: yarn build
       # Versioning
       - name: Versioning
+        env:
+            GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: yarn semantic-release
       # - uses: google-github-actions/upload-cloud-storage@v1
