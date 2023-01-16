@@ -26,8 +26,10 @@ jobs:
       # Build
       - name: Build
         run: yarn build
+      # Set GH Token for semantic release
+      - name: Set token for semantic release
+        run: export GH_TOKEN=${{ secrets.GH_TOKEN }}
       # Versioning
       - name: Versioning
-        run: export GH_TOKEN=${{ secrets.GH_TOKEN }}
         run: yarn semantic-release
       # - uses: google-github-actions/upload-cloud-storage@v1
