@@ -29,6 +29,6 @@ jobs:
       # Versioning
       - name: Versioning
         env:
-            GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: yarn semantic-release
       # - uses: google-github-actions/upload-cloud-storage@v1
