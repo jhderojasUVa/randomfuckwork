@@ -31,4 +31,12 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: yarn semantic-release
-      # - uses: google-github-actions/upload-cloud-storage@v1
+      - name: Deploy to Google Cloud Storage
+        uses: abinmn/gcp-storage-bucket-action
+        with:
+          service_key: ${{ secrets.GCLOUD_SERVICE_KEY }}
+          project: random-fuck-work
+          home_page_path: http://www.randomfuck.uk
+          error_page_path: http://www.randomfuck.uk
+          build_folder: ./build
+
