@@ -1,58 +1,69 @@
 {
-  "name": "fuck",
-  "version": "0.0.0-development",
-  "description": "Fuck generator... fuck in something every different every time",
-  "private": true,
-  "engines": {
-    "node": "^18.13.0",
-    "yarn": "^1.22.19"
-  },
-  "dependencies": {
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.3.2",
-    "@testing-library/user-event": "^7.1.2",
-    "axios": "^0.21.2",
-    "env-cmd": "^10.1.0",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-scripts": "^5.0.1",
-    "rimraf": "^4.0.5",
-    "semantic-release": "^20.0.2"
-  },
-  "scripts": {
-    "clean": "rimraf build",
-    "start": "react-scripts start",
-    "build": "rimraf build && react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "semantic-release": "semantic-release"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
-    "development": [
-      "last 1 chrome version",
-      "last 1 firefox version",
-      "last 1 safari version"
-    ]
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jhderojasUVa/randomfuckwork.git"
-  },
-  "devDependencies": {
-    "eslint": "^8.0.1",
-    "eslint-config-standard": "^17.0.0",
-    "eslint-plugin-import": "^2.25.2",
-    "eslint-plugin-n": "^15.0.0",
-    "eslint-plugin-promise": "^6.0.0",
-    "eslint-plugin-react": "^7.32.2",
-    "semantic-release": "^20.0.2"
-  }
+    "name": "fuck",
+    "version": "0.0.0-development",
+    "description": "Fuck generator... fuck in something every different every time",
+    "private": true,
+    "engines": {
+        "node": "^18.13.0",
+        "yarn": "^1.22.19"
+    },
+    "dependencies": {
+        "@testing-library/jest-dom": "^4.2.4",
+        "@testing-library/react": "^9.3.2",
+        "@testing-library/user-event": "^7.1.2",
+        "axios": "^0.21.2",
+        "env-cmd": "^10.1.0",
+        "react": "^16.13.1",
+        "react-dom": "^16.13.1",
+        "react-scripts": "^5.0.1",
+        "rimraf": "^4.0.5",
+        "semantic-release": "^20.0.2"
+    },
+    "scripts": {
+        "prepare": "husky install",
+        "clean": "rimraf build",
+        "start": "react-scripts start",
+        "build": "rimraf build && react-scripts build",
+        "test": "react-scripts test",
+        "eject": "react-scripts eject",
+        "semantic-release": "semantic-release",
+        "lint": "eslint .",
+        "lint:fix": "eslint . --fix",
+        "lint:staged": "lint-staged"
+    },
+    "eslintConfig": {
+        "extends": "react-app"
+    },
+    "browserslist": {
+        "production": [
+            ">0.2%",
+            "not dead",
+            "not op_mini all"
+        ],
+        "development": [
+            "last 1 chrome version",
+            "last 1 firefox version",
+            "last 1 safari version"
+        ]
+    },
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/jhderojasUVa/randomfuckwork.git"
+    },
+    "devDependencies": {
+        "@commitlint/cli": "^17.5.0",
+        "@commitlint/config-conventional": "^17.4.4",
+        "eslint": "^8.32.0",
+        "eslint-config-prettier": "^8.6.0",
+        "eslint-config-standard": "^17.0.0",
+        "eslint-plugin-import": "^2.25.2",
+        "eslint-plugin-n": "^15.0.0",
+        "eslint-plugin-prettier": "^4.2.1",
+        "eslint-plugin-promise": "^6.0.0",
+        "eslint-plugin-react": "^7.32.2",
+        "husky": "^8.0.3",
+        "lint-staged": "^13.2.0",
+        "prettier": "^2.8.3",
+        "semantic-release": "^20.0.2"
+    }
 }

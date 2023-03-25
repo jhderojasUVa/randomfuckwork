@@ -1,109 +1,107 @@
-[
-    {
-      "string": "life"
-    }, {
-      "string": "love"
-    },{
-      "string": "work"
-    }, {
-        "string": "you"
-    }, {
-        "string": "me"
-    }, {
-        "string": "he"
-    }, {
-        "string": "she"
-    }, {
-        "string": "them"
-    }, {
-        "string": "world"
-    }, {
-        "string": "milk"
-    }, {
-        "string": "money"
-    }, {
-        "string": "poverty"
-    }, {
-        "string": "boss"
-    }, {
-        "string": "politicians"
-    }, {
-        "string": "mobile"
-    }, {
-        "string": "it"
-    }, {
-        "string": "phone"
-    }, {
-        "string": "weather"
-    }, {
-        "string": "polution"
-    }, {
-        "string": "moon"
-    }, {
-        "string": "pluto"
-    }, {
-        "string": "sun"
-    }, {
-        "string": "stars"
-    }, {
-        "string": "country"
-    }, {
-        "string": "jobless"
-    }, {
-        "string": "looser"
-    }, {
-        "string": "winner"
-    }, {
-        "string": "food"
-    }, {
-        "string": "nature"
-    }, {
-        "string": "onions"
-    }, {
-        "string": "clean"
-    }, {
-        "string": "puzzle"
-    }, {
-        "string": "friend"
-    }, {
-        "string": "day"
-    }, {
-        "string": "night"
-    }, {
-        "string": "evening"
-    }, {
-        "string": "car"
-    }, {
-        "string": "bike"
-    }, {
-        "string": "motorbike"
-    }, {
-        "string": "breakfast"
-    }, {
-        "string": "lunch"
-    }, {
-        "string": "dinner"
-    }, {
-        "string": "plane"
-    }, {
-        "string": "carrot"
-    }, {
-        "string": "orange"
-    }, {
-        "string": "apple"
-    }, {
-        "string": "pear"
-    }, {
-        "string": "melon"
-    }, {
-        "string": "3D"
-    }, {
-        "string": "tv"
-    }, {
-        "string": "dvd"
-    }, {
-        "string": "radio"
-    }, {
-        "string": "everything"
-    }
-  ]
+[{
+    "string": "life"
+}, {
+    "string": "love"
+}, {
+    "string": "work"
+}, {
+    "string": "you"
+}, {
+    "string": "me"
+}, {
+    "string": "he"
+}, {
+    "string": "she"
+}, {
+    "string": "them"
+}, {
+    "string": "world"
+}, {
+    "string": "milk"
+}, {
+    "string": "money"
+}, {
+    "string": "poverty"
+}, {
+    "string": "boss"
+}, {
+    "string": "politicians"
+}, {
+    "string": "mobile"
+}, {
+    "string": "it"
+}, {
+    "string": "phone"
+}, {
+    "string": "weather"
+}, {
+    "string": "polution"
+}, {
+    "string": "moon"
+}, {
+    "string": "pluto"
+}, {
+    "string": "sun"
+}, {
+    "string": "stars"
+}, {
+    "string": "country"
+}, {
+    "string": "jobless"
+}, {
+    "string": "looser"
+}, {
+    "string": "winner"
+}, {
+    "string": "food"
+}, {
+    "string": "nature"
+}, {
+    "string": "onions"
+}, {
+    "string": "clean"
+}, {
+    "string": "puzzle"
+}, {
+    "string": "friend"
+}, {
+    "string": "day"
+}, {
+    "string": "night"
+}, {
+    "string": "evening"
+}, {
+    "string": "car"
+}, {
+    "string": "bike"
+}, {
+    "string": "motorbike"
+}, {
+    "string": "breakfast"
+}, {
+    "string": "lunch"
+}, {
+    "string": "dinner"
+}, {
+    "string": "plane"
+}, {
+    "string": "carrot"
+}, {
+    "string": "orange"
+}, {
+    "string": "apple"
+}, {
+    "string": "pear"
+}, {
+    "string": "melon"
+}, {
+    "string": "3D"
+}, {
+    "string": "tv"
+}, {
+    "string": "dvd"
+}, {
+    "string": "radio"
+}, {
+    "string": "everything"
+}]
