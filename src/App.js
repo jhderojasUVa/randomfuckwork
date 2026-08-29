@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
 
-function App () {
+function App() {
   // States
   const [data, setData] = useState([]);
   const [color, setColor] = useState('dark');
@@ -10,12 +10,12 @@ function App () {
   const [isLoading, setLoading] = useState(false);
 
   // Reload function
-  function pageReload () {
+  function pageReload() {
     reDo();
   }
 
   // Change from wikipedia to internal json
-  function changeFrom () {
+  function changeFrom() {
     if (wikipedia === true) {
       setWikipedia(false);
       pageReload();
@@ -26,7 +26,7 @@ function App () {
   }
 
   // Change from dark to light theme
-  function changeMode () {
+  function changeMode() {
     if (color === 'dark') {
       setColor('light');
     } else {
@@ -35,7 +35,7 @@ function App () {
   }
 
   // Reload function (one who do the calls)
-  function reDo () {
+  function reDo() {
     if (wikipedia === true) {
       setLoading(true);
       fechWikiPediaData();
@@ -92,44 +92,37 @@ function App () {
 
   // Font size
   const fontSize = {
-    fontSize: 'calc(100px - ' + randomData.length + 'px)'
+    fontSize: 'calc(100px - ' + randomData.length + 'px)',
   };
 
-  return (<
-    div className = "App" >
-    <
-      div className = "App-menu" >
-      <
-        div className = "App-where"
-        onClick = { changeFrom } >
-        <
-          p className = { color } > { wikipedia ? 'Wikipedia' : 'Internal' } < /p>{' '} <
-      /div>{' '} <
-        div className = "App-mode"
-        onClick = { changeMode } >
-        <
-          p className = { color } > { ' ' } { color.toUpperCase() }
-        mode { ' ' } <
-        /p>{' '} <
-      /div>{' '} <
-    /div>{' '} <
-      header className = { appClass } >
-      <
-        p onClick = { pageReload }
-        style = { fontSize } >
-        FUCK < strong > { randomData } < /strong>{' '} <
-      /p>{' '} <
-    /header>{' '} <
-      div className = "App-loading" >
-      <
-        img className = { isVisible }
-        src = "images/loading.gif"
-        width = "100"
-        alt = "loading... please wait!" /
-      >
-    <
-    /div>{' '} <
-  /div>
+  return (
+    <div className="App">
+      <div className="App-menu">
+        <div className="App-where" onClick={changeFrom}>
+          <p className={color}> {wikipedia ? 'Wikipedia' : 'Internal'} </p>{' '}
+        </div>{' '}
+        <div className="App-mode" onClick={changeMode}>
+          <p className={color}>
+            {' '}
+            {color.toUpperCase()}
+            mode{' '}
+          </p>{' '}
+        </div>{' '}
+      </div>{' '}
+      <header className={appClass}>
+        <p onClick={pageReload} style={fontSize}>
+          FUCK <strong> {randomData} </strong>{' '}
+        </p>{' '}
+      </header>{' '}
+      <div className="App-loading">
+        <img
+          className={isVisible}
+          src="images/loading.gif"
+          width="100"
+          alt="loading... please wait!"
+        />
+      </div>{' '}
+    </div>
   );
 }
 

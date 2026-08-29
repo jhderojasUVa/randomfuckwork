@@ -1,6 +1,7 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Random Generator",
+  "name": "Random Quote & Wikipedia Generator",
+  "description": "A fun, lightweight React app that generates random quotes from a local database or fetches random Wikipedia summaries. Features dark/light theme toggle and Wikipedia/Internal data source switching.",
   "icons": [
     {
       "src": "favicon.ico",
@@ -10,16 +11,28 @@
     {
       "src": "logo192.png",
       "type": "image/png",
-      "sizes": "192x192"
+      "sizes": "192x192",
+      "purpose": "any"
     },
     {
       "src": "logo512.png",
       "type": "image/png",
-      "sizes": "512x512"
+      "sizes": "512x512",
+      "purpose": "any"
     }
   ],
   "start_url": ".",
+  "scope": "/",
   "display": "standalone",
+  "orientation": "portrait-primary",
   "theme_color": "#000000",
-  "background_color": "#ffffff"
+  "background_color": "#ffffff",
+  "screenshots": [
+    {
+      "src": "images/loading.gif",
+      "sizes": "100x100",
+      "type": "image/gif"
+    }
+  ],
+  "categories": ["entertainment", "utilities"]
 }

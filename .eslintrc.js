@@ -1,12 +1,12 @@
 module.exports = {
   settings: {
     react: {
-      version: 'detect'
-    }
+      version: 'detect',
+    },
   },
   env: {
     browser: true,
-    es2021: true
+    es2021: true,
   },
   extends: ['plugin:react/recommended', 'standard'],
   overrides: [],
@@ -30,6 +30,12 @@ module.exports = {
     // no break on case (WARNING)
     'no-fallthrough': 'warn',
     // no void
-    'no-void': 'off'
-  }
+    'no-void': 'off',
+    // Allow JSX in js files
+    'react/react-in-jsx-scope': 'off',
+    // Allow trailing commas
+    'comma-dangle': ['error', 'only-multiline'],
+    // Allow function definitions without space before parentheses
+    'space-before-function-paren': ['error', { anonymous: 'always', named: 'never', asyncArrow: 'always' }],
+  },
 };
