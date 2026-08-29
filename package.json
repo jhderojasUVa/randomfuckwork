@@ -8,13 +8,13 @@
         "yarn": "^1.22.19"
     },
     "dependencies": {
-        "@testing-library/jest-dom": "^4.2.4",
-        "@testing-library/react": "^9.3.2",
+        "@testing-library/jest-dom": "^7.0.1",
+        "@testing-library/react": "^16.3.3",
         "@testing-library/user-event": "^7.1.2",
         "axios": "^0.21.2",
         "env-cmd": "^11.0.0",
-        "react": "^16.13.1",
-        "react-dom": "^16.13.1",
+        "react": "^19.2.8",
+        "react-dom": "^19.2.8",
         "react-scripts": "^5.0.1",
         "rimraf": "^4.4.1",
         "semantic-release": "^20.0.2"
