@@ -8,8 +8,9 @@
   right: 0;
 }
 
-.App-mode, .App-where {
-  display: inline-block; 
+.App-mode,
+.App-where {
+  display: inline-block;
   padding: 10px;
   margin: 10px auto;
   margin-right: 0.25rem;
@@ -17,23 +18,27 @@
   cursor: pointer;
 }
 
-.App-mode:hover, .App-where:hover {
+.App-mode:hover,
+.App-where:hover {
   background-color: darkorange;
 }
 
-.App-mode .dark, .App-where .dark {
+.App-mode .dark,
+.App-where .dark {
   color: white;
   margin: 0;
   padding: 0;
 }
 
-.App-mode .light, .App-where .light {
+.App-mode .light,
+.App-where .light {
   color: black;
   margin: 0;
   padding: 0;
 }
 
-.App-mode:hover p, .App-where:hover p {
+.App-mode:hover p,
+.App-where:hover p {
   color: white;
 }
 
