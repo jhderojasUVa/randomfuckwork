@@ -7,10 +7,23 @@ module.exports = {
   env: {
     browser: true,
     es2021: true,
+    jest: true,
   },
-  extends: ['plugin:react/recommended', 'standard'],
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    ecmaVersion: 2021,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
+    },
+  },
+  extends: [
+    'plugin:react/recommended',
+    'plugin:@typescript-eslint/recommended',
+    'standard',
+  ],
   overrides: [],
-  plugins: ['react'],
+  plugins: ['react', '@typescript-eslint'],
   rules: {
     quotes: ['error', 'single'],
     semi: ['error', 'always'],
@@ -25,5 +38,7 @@ module.exports = {
     'react/react-in-jsx-scope': 'off',
     'comma-dangle': 'off',
     'space-before-function-paren': 'off',
+    '@typescript-eslint/no-explicit-any': ['warn'],
+    '@typescript-eslint/no-empty-object-type': ['off'],
   },
 };
