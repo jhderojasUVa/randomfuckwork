@@ -30,7 +30,7 @@ env:
   GCP_COVERAGE_REPORTS_BUCKET: gs://randomfuckwork-coverage-reports-dev
   
   # Node Configuration
-  NODE_VERSION: 22
+  NODE_VERSION: 22.19.0
 
 # ============================================================================
 # Concurrency Settings
