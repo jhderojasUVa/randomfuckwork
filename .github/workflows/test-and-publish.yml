@@ -9,10 +9,10 @@ name: Test & Publish to GCP
 on:
   push:
     branches:
-      - main
+      - master
   pull_request:
     branches:
-      - main
+      - master
 
 # ============================================================================
 # Environment Variables
@@ -44,6 +44,9 @@ jobs:
   # ============================================================================
   # Job 1: Test Execution and Report Generation
   # ============================================================================
+  # This job runs first and must complete successfully before the release job
+  # runs in this same workflow. It ensures that tests pass before any release
+  # or publishing operations are performed on the main branch.
   test:
     name: Run Tests & Generate Reports
     runs-on: ubuntu-latest
@@ -151,6 +154,7 @@ jobs:
       # ========================================================================
       - name: 📄 Generate JUnit XML Report
         if: always()
+        continue-on-error: true
         run: |
           # Install jest-junit reporter
           npm install -g jest-junit 2>/dev/null || yarn add jest-junit 2>/dev/null || true
@@ -179,7 +183,6 @@ jobs:
               console.log('✅ JUnit XML report generated');
             \"
           fi
-        continue-on-error: true
 
       # ========================================================================
       # Step 7: Upload test results as artifact
@@ -206,8 +209,168 @@ jobs:
           if-no-files-found: warn
 
   # ============================================================================
-  # Job 2: Publish Results to GCP (only on main branch)
+  # Job 2: Semantic Release & Version Management
   # ============================================================================
+  # This job runs AFTER the test job completes successfully (needs: test).
+  # It analyzes conventional commit history and:
+  # - Bumps semantic version (major.minor.patch) in package.json
+  # - Creates annotated git tag and GitHub release
+  # - Generates release notes from commit messages
+  #
+  # CRITICAL: This must complete BEFORE publish-to-gcp starts,
+  # ensuring artifacts have version tags before GCP upload.
+  release:
+    name: Semantic Release
+    runs-on: ubuntu-latest
+    
+    # IMPORTANT: runs after test job completes
+    needs: test
+
+    # Permissions required for semantic-release and Git operations
+    permissions:
+      contents: write      # To create releases and push version updates
+      issues: read         # To link issues in release notes
+      pull-requests: read  # To link PRs in release notes
+      id-token: write      # For OIDC token generation (optional)
+
+    steps:
+      # ========================================================================
+      # Step 1: Checkout repository with full commit history
+      # ========================================================================
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Fetch full history needed for semantic-release tag analysis
+          fetch-depth: 0
+          # Use a token with write permissions for pushing version updates
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ========================================================================
+      # Step 2: Setup Node.js environment
+      # ========================================================================
+      - name: 🟢 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ env.NODE_VERSION }}
+          cache: 'yarn'
+
+      # ========================================================================
+      # Step 3: Install dependencies
+      # ========================================================================
+      - name: 📦 Install dependencies
+        run: |
+          echo "Installing dependencies with yarn..."
+          yarn install --frozen-lockfile
+        env:
+          CI: true
+
+      # ========================================================================
+      # Step 4: Configure Git for semantic-release commits
+      # ========================================================================
+      # semantic-release needs Git credentials to push version commits
+      - name: 🔧 Configure Git
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action (semantic-release)"
+          echo "✅ Git configured for automated commits"
+
+      # ========================================================================
+      # Step 5: Run semantic-release
+      # ========================================================================
+      # semantic-release will:
+      # - Analyze commits since last release using conventional commits spec
+      # - Determine version bump (major, minor, patch) or skip if no changes
+      # - Update package.json version field
+      # - Update package-lock.json
+      # - Create annotated git tag (e.g., v1.2.3)
+      # - Create GitHub release with auto-generated release notes
+      # - Push commits and tags to repository
+      #
+      # The process is idempotent: if called twice, the second run detects
+      # that the version is already released and does nothing.
+      - name: 🚀 Run Semantic Release
+        id: semantic-release
+        run: |
+          echo "Running semantic-release..."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Run semantic-release with verbose logging for debugging
+          yarn semantic-release --debug || RELEASE_EXIT_CODE=$?
+          
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Capture new version if release succeeded
+          if [ -f package.json ]; then
+            NEW_VERSION=$(node -e "console.log(require('./package.json').version)")
+            echo "version=${NEW_VERSION}" >> $GITHUB_OUTPUT
+            echo "✅ New version: ${NEW_VERSION}"
+          else
+            echo "⚠️  Unable to read new version from package.json"
+          fi
+          
+          exit ${RELEASE_EXIT_CODE:-0}
+        env:
+          # semantic-release uses GITHUB_TOKEN for authentication
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Enable NPM plugin to update package.json
+          npm_config_registry: https://registry.npmjs.org/
+
+      # ========================================================================
+      # Step 6: Verify version update
+      # ========================================================================
+      - name: ✅ Verify Version Update
+        if: success()
+        run: |
+          echo "Release workflow completed successfully"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          
+          # Display current version
+          CURRENT_VERSION=$(node -e "console.log(require('./package.json').version)")
+          echo "📦 Current version in package.json: ${CURRENT_VERSION}"
+          
+          # Display git tags (last 5)
+          echo ""
+          echo "📝 Recent git tags:"
+          git tag --list --sort=-version:refname | head -5 | sed 's/^/  /'
+          
+          # Display git log (last 3 commits)
+          echo ""
+          echo "📋 Recent commits:"
+          git log --oneline -3 | sed 's/^/  /'
+          
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+      # ========================================================================
+      # Step 7: Handle workflow errors
+      # ========================================================================
+      - name: ❌ Handle Release Failure
+        if: failure()
+        run: |
+          echo "❌ Release workflow failed"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+          echo "Possible reasons:"
+          echo "  1. No new commits to analyze (no version bump needed)"
+          echo "  2. Commits don't follow conventional commit format"
+          echo "  3. Git configuration issues"
+          echo "  4. Permission issues with GitHub token"
+          echo ""
+          echo "Note: This is not necessarily an error. Semantic-release"
+          echo "skips releases when there are no changes to release."
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+  # ============================================================================
+  # Job 3: Publish Test Results & Coverage to GCP
+  # ============================================================================
+  # This job runs AFTER the release job completes successfully (needs: release).
+  # It uploads test reports and coverage reports to GCP buckets.
+  #
+  # Execution sequence ensures correct order:
+  # 1. test job completes
+  # 2. release job starts (waits for test via needs:)
+  # 3. release job completes: version bump, git tag created
+  # 4. publish-to-gcp job starts (waits for release via needs:)
+  # 5. publish-to-gcp job completes: artifacts uploaded with version tag
   publish-to-gcp:
     name: Publish Test & Coverage Reports to GCP
     runs-on: ubuntu-latest
@@ -215,8 +378,8 @@ jobs:
     # Only run on main branch pushes (not on PRs)
     if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     
-    # Run after test job completes
-    needs: test
+    # Run after release job completes
+    needs: release
     
     # Permissions for OIDC token generation
     permissions:
