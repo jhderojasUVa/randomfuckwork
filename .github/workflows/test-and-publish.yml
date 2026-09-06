@@ -221,8 +221,9 @@ jobs:
         with:
           # Fetch full history needed for semantic-release tag analysis
           fetch-depth: 0
-          # Use a token with write permissions for pushing version updates
-          token: ${{ secrets.GITHUB_TOKEN }}
+          # PAT with repo scope - the default GITHUB_TOKEN cannot push
+          # directly to master because branch protection requires PRs
+          token: ${{ secrets.RELEASE_TOKEN }}
 
       # ========================================================================
       # Step 2: Setup Node.js environment
@@ -293,7 +294,8 @@ jobs:
           exit ${RELEASE_EXIT_CODE:-0}
         env:
           # semantic-release uses GITHUB_TOKEN for authentication
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # PAT with repo scope - bypasses PR requirement on master
+          GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
           # Enable NPM plugin to update package.json
           npm_config_registry: https://registry.npmjs.org/
 
