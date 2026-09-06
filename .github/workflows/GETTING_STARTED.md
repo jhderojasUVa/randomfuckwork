@@ -6,6 +6,7 @@ This guide will help you complete the setup in **3 simple steps**.
 
 - **GCP Project** with billing enabled
 - **gcloud CLI** installed and authenticated (`gcloud auth login`)
+  - **⚠️ WSL Users**: See [WSL_SETUP_GUIDE.md](WSL_SETUP_GUIDE.md) - you need WSL-native gcloud, not Windows version
 - **GitHub CLI** installed (`gh` - optional but recommended)
 - Admin access to this GitHub repository
 
