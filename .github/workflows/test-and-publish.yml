@@ -375,8 +375,8 @@ jobs:
     name: Publish Test & Coverage Reports to GCP
     runs-on: ubuntu-latest
     
-    # Only run on main branch pushes (not on PRs)
-    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    # Only run on master branch pushes (not on PRs)
+    if: github.ref == 'refs/heads/master' && github.event_name == 'push'
     
     # Run after release job completes
     needs: release
