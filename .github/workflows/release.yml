@@ -10,7 +10,7 @@ on:
     types:
       - completed
     branches:
-      - main
+      - master
 
 # ============================================================================
 # Environment Variables
