@@ -20,6 +20,8 @@ This directory contains a complete, production-ready CI/CD pipeline for the rand
 | **GCP_SETUP_GUIDE.md** | Detailed GCP configuration | If you need help with GCP |
 | **JEST_CONFIGURATION.md** | Test optimization guide | For improving test reports |
 | **QUICK_CONFIG.md** | Quick reference sheet | While setting up |
+| **WSL_QUICK_START.md** | For Windows Subsystem for Linux users | **If using WSL** |
+| **WSL_SETUP_GUIDE.md** | Detailed WSL gcloud installation | If WSL setup issues |
 
 ### 🚀 Setup Scripts
 
