@@ -1,3 +1,9 @@
+## [1.2.1](https://github.com/jhderojasUVa/randomfuckwork/compare/v1.2.0...v1.2.1) (2026-09-06)
+
+### 🐛 Bug Fixes
+
+* **ci:** write test results JSON via stdout redirect ([ae08b2a](https://github.com/jhderojasUVa/randomfuckwork/commit/ae08b2a63c7e4e9f216a74de3d9a48e2ffa917ac))
+
 ## [1.2.0](https://github.com/jhderojasUVa/randomfuckwork/compare/v1.1.0...v1.2.0) (2026-09-06)
 
 ### ✨ Features
