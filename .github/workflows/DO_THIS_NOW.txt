@@ -1,0 +1,87 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                        🚨 YOU'RE HERE 🚨                                    ║
+║                                                                              ║
+║   Error: INVALID_ARGUMENT: The attribute condition must reference           ║
+║           one of the provider's claims                                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✅ SOLUTION: The Workload Identity Pool is corrupted. We need to delete it
+   and create a fresh one.
+
+⚡ RUN THIS ONE COMMAND RIGHT NOW:
+
+   bash ./.github/workflows/RECOVER_WIF_PROVIDER.sh
+
+   This script will:
+   ✓ Automatically delete the corrupted pool and provider
+   ✓ Create a fresh Workload Identity Pool
+   ✓ Create a new OIDC Provider with correct configuration
+   ✓ Create the service account
+   ✓ Grant all permissions
+   ✓ Output the 3 values you need
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📋 WHAT HAPPENS NEXT:
+
+After running the script, it will show you output like:
+
+   GCP_PROJECT_ID = random-fuck-work
+   
+   GCP_WORKLOAD_IDENTITY_PROVIDER = 
+   projects/605371248588/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+   
+   GCP_SERVICE_ACCOUNT_EMAIL = 
+   github-actions-sa@random-fuck-work.iam.gserviceaccount.com
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📝 THEN ADD THESE 3 VARIABLES TO GITHUB:
+
+1. Go to: https://github.com/jhderojasUVa/randomfuckwork/settings/variables/actions
+
+2. Click "New repository variable" 3 times and add:
+   
+   Name: GCP_PROJECT_ID
+   Value: random-fuck-work
+   
+   Name: GCP_WORKLOAD_IDENTITY_PROVIDER
+   Value: (paste the full value from script output)
+   
+   Name: GCP_SERVICE_ACCOUNT_EMAIL
+   Value: github-actions-sa@random-fuck-work.iam.gserviceaccount.com
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 THEN TRIGGER THE PIPELINE:
+
+   git push origin main
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⏱️ TIMING:
+   - Recovery script: 2-3 minutes
+   - Adding GitHub variables: 1 minute
+   - First pipeline run: 10 minutes
+   ─────────────
+   Total: 15 minutes
+
+═══════════════════════════════════════════════════════════════════════════════
+
+❓ WHAT IF THE RECOVERY SCRIPT FAILS?
+
+Read: .github/workflows/FIX_INVALID_ARGUMENT_ERROR.md
+
+This file has:
+✓ Detailed explanation of why this error happens
+✓ Manual fix if script fails
+✓ Advanced troubleshooting
+✓ Understanding what went wrong
+
+═══════════════════════════════════════════════════════════════════════════════
+
+👉 RIGHT NOW:
+
+   bash ./.github/workflows/RECOVER_WIF_PROVIDER.sh
+
+That's it! The script does everything else.
