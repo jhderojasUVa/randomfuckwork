@@ -1,0 +1,117 @@
+╔════════════════════════════════════════════════════════════════════════════╗
+║                     CI/CD PIPELINE - QUICK START                          ║
+╚════════════════════════════════════════════════════════════════════════════╝
+
+YOUR PIPELINE IS READY! Follow these 4 simple steps to activate it:
+
+┌─ STEP 1: Install WSL-Native Google Cloud SDK ─────────────────────────────┐
+│                                                                            │
+│  Run in WSL terminal:                                                      │
+│                                                                            │
+│  echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] \            │
+│  https://packages.cloud.google.com/apt cloud-sdk main" | \               │
+│  sudo tee -a /etc/apt/sources.list.d/google-cloud-sdk.list               │
+│                                                                            │
+│  curl https://packages.cloud.google.com/apt/doc/apt-key.gpg | \          │
+│  sudo apt-key --keyring /usr/share/keyrings/cloud.google.gpg add -       │
+│                                                                            │
+│  sudo apt-get update                                                       │
+│  sudo apt-get install -y google-cloud-sdk                                 │
+│  gcloud init                                                               │
+│                                                                            │
+│  ✓ When prompted, log in to your GCP account                             │
+│  ✓ Select project: random-fuck-work                                       │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ STEP 2: Create OIDC Provider ─────────────────────────────────────────────┐
+│                                                                            │
+│  gcloud iam workload-identity-pools providers create-oidc github-provider  │
+│    --project=random-fuck-work \                                           │
+│    --location=global \                                                     │
+│    --workload-identity-pool=github-pool \                                 │
+│    --display-name="GitHub Provider" \                                     │
+│    --attribute-mapping="google.subject=assertion.sub" \                   │
+│    --issuer-uri="https://token.actions.githubusercontent.com"             │
+│                                                                            │
+│  ✓ Expected: "Created provider github-provider in pool github-pool"      │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ STEP 3: Extract Configuration Values ─────────────────────────────────────┐
+│                                                                            │
+│  Copy these 3 values:                                                      │
+│                                                                            │
+│  GCP_PROJECT_ID:                                                           │
+│  random-fuck-work                                                          │
+│                                                                            │
+│  GCP_WORKLOAD_IDENTITY_PROVIDER:                                           │
+│  gcloud iam workload-identity-pools providers describe github-provider \  │
+│    --project=random-fuck-work \                                           │
+│    --location=global \                                                     │
+│    --workload-identity-pool=github-pool \                                 │
+│    --format="value(name)"                                                  │
+│                                                                            │
+│  GCP_SERVICE_ACCOUNT_EMAIL:                                                │
+│  github-actions-sa@random-fuck-work.iam.gserviceaccount.com               │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ STEP 4: Add GitHub Variables ─────────────────────────────────────────────┐
+│                                                                            │
+│  1. Go to:                                                                 │
+│     https://github.com/jhderojasUVa/randomfuckwork/settings/variables/actions
+│                                                                            │
+│  2. Click "New repository variable" 3 times                               │
+│                                                                            │
+│  3. Add:                                                                   │
+│     ✓ GCP_PROJECT_ID                                                      │
+│     ✓ GCP_WORKLOAD_IDENTITY_PROVIDER                                      │
+│     ✓ GCP_SERVICE_ACCOUNT_EMAIL                                           │
+│                                                                            │
+│  4. Save each one                                                          │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ STEP 5: Grant Permissions ────────────────────────────────────────────────┐
+│                                                                            │
+│  Run in WSL terminal:                                                      │
+│                                                                            │
+│  gcloud iam service-accounts add-iam-policy-binding \                     │
+│    github-actions-sa@random-fuck-work.iam.gserviceaccount.com \           │
+│    --project=random-fuck-work \                                           │
+│    --role="roles/iam.workloadIdentityUser" \                              │
+│    --subject="repo:jhderojasUVa/randomfuckwork:ref:refs/heads/main"       │
+│                                                                            │
+│  gsutil iam ch \                                                           │
+│    serviceAccount:github-actions-sa@random-fuck-work.iam.gserviceaccount.com:objectCreator \
+│    gs://randomfuckwork-test-results-dev/                                  │
+│                                                                            │
+│  gsutil iam ch \                                                           │
+│    serviceAccount:github-actions-sa@random-fuck-work.iam.gserviceaccount.com:objectCreator \
+│    gs://randomfuckwork-coverage-reports-dev/                              │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+┌─ STEP 6: Trigger Pipeline ────────────────────────────────────────────────┐
+│                                                                            │
+│  git push origin main                                                      │
+│                                                                            │
+│  Then go to:                                                               │
+│  https://github.com/jhderojasUVa/randomfuckwork/actions                   │
+│                                                                            │
+│  ✓ Wait for "Test & Publish to GCP" workflow to complete                 │
+│  ✓ Should see ✓ green checkmarks on both jobs                             │
+│  ✓ Reports will be in GitHub Artifacts & GCS buckets                      │
+│                                                                            │
+└────────────────────────────────────────────────────────────────────────────┘
+
+TIMELINE: ~15 minutes total
+- Installation: 5 min
+- GCP commands: 3 min
+- GitHub setup: 3 min
+- First pipeline run: 10 min
+
+NEED HELP? Read: .github/workflows/COMPLETE_SETUP_GUIDE.md
+
+═══════════════════════════════════════════════════════════════════════════════
