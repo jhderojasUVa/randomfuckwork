@@ -113,7 +113,7 @@ if [ -z "$PROVIDER_EXISTS" ]; then
     --location="global" \
     --workload-identity-pool="$WORKLOAD_POOL_NAME" \
     --display-name="GitHub Provider" \
-    --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner" \
+    --attribute-mapping="google.subject=assertion.sub" \
     --issuer-uri="https://token.actions.githubusercontent.com"
   echo -e "${GREEN}  ✓ Created Workload Identity Provider${NC}"
 else
@@ -140,7 +140,7 @@ else
       --location="global" \
       --workload-identity-pool="$WORKLOAD_POOL_NAME" \
       --display-name="GitHub Provider" \
-      --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner" \
+      --attribute-mapping="google.subject=assertion.sub" \
       --issuer-uri="https://token.actions.githubusercontent.com"
     echo -e "${GREEN}  ✓ Recreated with correct configuration${NC}"
   else
