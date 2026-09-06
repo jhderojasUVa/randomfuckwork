@@ -1,0 +1,16 @@
+1. Run this script:
+   bash ./.github/workflows/setup.sh
+
+2. Copy the 3 values it outputs
+
+3. Go to: https://github.com/jhderojasUVa/randomfuckwork/settings/variables/actions
+
+4. Click "New repository variable" 3 times:
+   - GCP_PROJECT_ID = random-fuck-work
+   - GCP_WORKLOAD_IDENTITY_PROVIDER = (the long value)
+   - GCP_SERVICE_ACCOUNT_EMAIL = (the email)
+
+5. Then run:
+   git push origin main
+
+Done.
