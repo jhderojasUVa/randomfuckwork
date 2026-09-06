@@ -274,9 +274,12 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           
           # Run semantic-release with verbose logging for debugging
-          yarn semantic-release --debug || RELEASE_EXIT_CODE=$?
+          # Capture ALL output to a file so it survives hard crashes (OOM/signals)
+          yarn semantic-release --debug > semantic-release.log 2>&1 || RELEASE_EXIT_CODE=$?
+          cat semantic-release.log
           
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "semantic-release exit code: ${RELEASE_EXIT_CODE:-0}"
           
           # Capture new version if release succeeded
           if [ -f package.json ]; then
@@ -293,6 +296,18 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           # Enable NPM plugin to update package.json
           npm_config_registry: https://registry.npmjs.org/
+
+      # ========================================================================
+      # Step 5b: Upload semantic-release log on failure (survives lost output)
+      # ========================================================================
+      - name: 📤 Upload semantic-release log
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: semantic-release-log
+          path: semantic-release.log
+          retention-days: 7
+          if-no-files-found: warn
 
       # ========================================================================
       # Step 6: Verify version update
