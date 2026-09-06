@@ -4,7 +4,7 @@
     "description": "Fuck generator... fuck in something every different every time",
     "private": true,
     "engines": {
-        "node": ">=18.13.0",
+        "node": ">=22",
         "yarn": "^1.22.19"
     },
     "dependencies": {
