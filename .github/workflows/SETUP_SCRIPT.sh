@@ -117,7 +117,35 @@ if [ -z "$PROVIDER_EXISTS" ]; then
     --issuer-uri="https://token.actions.githubusercontent.com"
   echo -e "${GREEN}  ✓ Created Workload Identity Provider${NC}"
 else
-  echo -e "${YELLOW}  ℹ Workload Identity Provider already exists${NC}"
+  # Provider exists - check if it has the right configuration
+  PROVIDER_CONFIG=$(gcloud iam workload-identity-pools providers describe "$WORKLOAD_PROVIDER_NAME" \
+    --project="$GCP_PROJECT_ID" \
+    --location="global" \
+    --workload-identity-pool="$WORKLOAD_POOL_NAME" \
+    --format="value(attributeMapping)" 2>/dev/null || echo "")
+  
+  if echo "$PROVIDER_CONFIG" | grep -q "attribute.actor"; then
+    # Old bad configuration detected - delete and recreate
+    echo -e "${YELLOW}  Detected old configuration with invalid attribute.actor claim${NC}"
+    echo "  Deleting old provider..."
+    gcloud iam workload-identity-pools providers delete "$WORKLOAD_PROVIDER_NAME" \
+      --project="$GCP_PROJECT_ID" \
+      --location="global" \
+      --workload-identity-pool="$WORKLOAD_POOL_NAME" \
+      --quiet
+    
+    echo "  Creating corrected OIDC provider..."
+    gcloud iam workload-identity-pools providers create-oidc "$WORKLOAD_PROVIDER_NAME" \
+      --project="$GCP_PROJECT_ID" \
+      --location="global" \
+      --workload-identity-pool="$WORKLOAD_POOL_NAME" \
+      --display-name="GitHub Provider" \
+      --attribute-mapping="google.subject=assertion.sub,attribute.repository=assertion.repository,attribute.repository_owner=assertion.repository_owner" \
+      --issuer-uri="https://token.actions.githubusercontent.com"
+    echo -e "${GREEN}  ✓ Recreated with correct configuration${NC}"
+  else
+    echo -e "${YELLOW}  ℹ Workload Identity Provider already exists with correct configuration${NC}"
+  fi
 fi
 
 WORKLOAD_IDENTITY_PROVIDER=$(gcloud iam workload-identity-pools providers describe "$WORKLOAD_PROVIDER_NAME" \
