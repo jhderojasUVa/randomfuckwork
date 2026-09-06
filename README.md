@@ -1,5 +1,20 @@
 # Random F*ck in something
 
+## ⚡ CI/CD Pipeline Setup
+
+To complete the CI/CD pipeline that runs tests and publishes to GCP, add these 3 GitHub Variables:
+https://github.com/jhderojasUVa/randomfuckwork/settings/variables/actions
+
+```
+GCP_PROJECT_ID = random-fuck-work
+GCP_WORKLOAD_IDENTITY_PROVIDER = projects/605371248588/locations/global/workloadIdentityPools/github-pool/providers/github-provider
+GCP_SERVICE_ACCOUNT_EMAIL = github-actions-sa@random-fuck-work.iam.gserviceaccount.com
+```
+
+Then push to main: `git push origin main`
+
+---
+
 ![Example of running application in light mode](example.png)
 ![Example of running application in dark mode](example_dark.png)
 
