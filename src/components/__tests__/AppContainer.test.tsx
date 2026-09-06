@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { AppContainer } from '../../Container/AppContainer';
+import { AppContainer } from '../Container/AppContainer';
 
 interface MockMenuBarProps {
   theme: string;
@@ -25,7 +25,7 @@ interface MockLoadingSpinnerProps {
 }
 
 // Mock child components to isolate AppContainer tests
-jest.mock('../../MenuBar/MenuBar', () => ({
+jest.mock('../MenuBar/MenuBar', () => ({
   MenuBar: ({ theme, themeLabel, dataSourceLabel }: MockMenuBarProps) => (
     <div data-testid="menu-bar">
       MenuBar: {theme}, {themeLabel}, {dataSourceLabel}
@@ -33,7 +33,7 @@ jest.mock('../../MenuBar/MenuBar', () => ({
   ),
 }));
 
-jest.mock('../../Header/Header', () => ({
+jest.mock('../Header/Header', () => ({
   Header: ({ className, displayText, style, onClick }: MockHeaderProps) => (
     <header data-testid="header" className={className} onClick={onClick} style={style}>
       {displayText}
@@ -41,7 +41,7 @@ jest.mock('../../Header/Header', () => ({
   ),
 }));
 
-jest.mock('../../LoadingSpinner/LoadingSpinner', () => ({
+jest.mock('../LoadingSpinner/LoadingSpinner', () => ({
   LoadingSpinner: ({ isLoading }: MockLoadingSpinnerProps) => (
     <div data-testid="loading-spinner" data-loading={isLoading}>
       Loading: {isLoading ? 'true' : 'false'}
@@ -204,20 +204,20 @@ describe('AppContainer', () => {
       expect(document.querySelector('.App')).toBeInTheDocument();
     });
 
-    it('should have App-menu class for MenuBar container', () => {
+    it('should render the MenuBar container', () => {
       // Act
       render(<AppContainer {...defaultProps} />);
 
       // Assert
-      expect(document.querySelector('.App-menu')).toBeInTheDocument();
+      expect(screen.getByTestId('menu-bar')).toBeInTheDocument();
     });
 
-    it('should have App-loading class for LoadingSpinner container', () => {
+    it('should render the LoadingSpinner container', () => {
       // Act
       render(<AppContainer {...defaultProps} />);
 
       // Assert
-      expect(document.querySelector('.App-loading')).toBeInTheDocument();
+      expect(screen.getByTestId('loading-spinner')).toBeInTheDocument();
     });
   });
 

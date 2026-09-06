@@ -19,6 +19,7 @@ describe('themeService', () => {
 
   afterEach(() => {
     document.documentElement.removeAttribute('data-theme');
+    jest.restoreAllMocks();
   });
 
   describe('toggleTheme', () => {

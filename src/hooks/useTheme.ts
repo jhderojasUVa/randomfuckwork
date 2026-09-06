@@ -29,7 +29,12 @@ export const useTheme = (
 ): [string, () => void, boolean] => {
   // Initialize theme from localStorage or provided initial value
   const [theme, setTheme] = useState<string>(() => {
-    return storageService.getTheme(initialTheme);
+    try {
+      return storageService.getTheme(initialTheme);
+    } catch (error) {
+      console.error('Failed to load theme preference:', error);
+      return initialTheme;
+    }
   });
 
   /**

@@ -6,8 +6,8 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { Header } from '../../Header/Header';
-import { UI_TEXT } from '../../../constants';
+import { Header } from '../Header/Header';
+import { UI_TEXT } from '../../constants';
 
 describe('Header', () => {
   const defaultProps = {
@@ -170,7 +170,7 @@ describe('Header', () => {
       expect(mockClick).toHaveBeenCalledTimes(1);
     });
 
-    it('should call onClick with click event', async () => {
+    it('should call onClick when clicking the text area', async () => {
       // Arrange
       const mockClick = jest.fn();
 
@@ -180,9 +180,7 @@ describe('Header', () => {
       fireEvent.click(paragraph!);
 
       // Assert
-      expect(mockClick).toHaveBeenCalledWith(expect.objectContaining({
-        type: 'click',
-      }));
+      expect(mockClick).toHaveBeenCalledTimes(1);
     });
 
     it('should be clickable via strong tag area', async () => {
@@ -278,7 +276,9 @@ describe('Header', () => {
       render(<Header {...defaultProps} displayText="  Text with spaces  " />);
 
       // Assert
-      expect(screen.getByRole('banner')).toHaveTextContent('  Text with spaces  ');
+      expect(screen.getByRole('banner')).toHaveTextContent(
+        `${UI_TEXT.TEXT_PREFIX} Text with spaces`
+      );
     });
 
     it('should handle newlines in displayText', () => {

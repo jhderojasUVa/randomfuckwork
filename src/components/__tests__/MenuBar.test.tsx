@@ -5,7 +5,7 @@
 
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import { MenuBar } from '../../MenuBar/MenuBar';
+import { MenuBar } from '../MenuBar/MenuBar';
 
 // Mock child components
 interface MockThemeToggleProps {
@@ -18,7 +18,7 @@ interface MockDataSourceToggleProps {
   label: string;
 }
 
-jest.mock('../../MenuBar/ThemeToggle', () => ({
+jest.mock('../MenuBar/ThemeToggle', () => ({
   ThemeToggle: ({ theme, label }: MockThemeToggleProps) => (
     <div data-testid="theme-toggle">
       ThemeToggle: {theme}, {label}
@@ -26,7 +26,7 @@ jest.mock('../../MenuBar/ThemeToggle', () => ({
   ),
 }));
 
-jest.mock('../../MenuBar/DataSourceToggle', () => ({
+jest.mock('../MenuBar/DataSourceToggle', () => ({
   DataSourceToggle: ({ theme, label }: MockDataSourceToggleProps) => (
     <div data-testid="data-source-toggle">
       DataSourceToggle: {theme}, {label}

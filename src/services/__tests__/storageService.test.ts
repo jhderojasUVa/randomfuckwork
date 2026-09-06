@@ -15,6 +15,7 @@ describe('storageService', () => {
 
   afterEach(() => {
     localStorage.clear();
+    jest.restoreAllMocks();
   });
 
   describe('saveTheme', () => {

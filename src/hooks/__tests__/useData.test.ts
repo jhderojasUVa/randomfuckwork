@@ -73,12 +73,14 @@ describe('useData hook', () => {
       expect(Array.isArray(result.current.data)).toBe(true);
     });
 
-    it('should start with isLoading false', () => {
+    it('should finish loading after initial fetch', async () => {
       // Arrange & Act
       const { result } = renderHook(() => useData());
 
-      // Assert
-      expect(result.current.isLoading).toBe(false);
+      // Assert - the hook auto-fetches on mount, then loading completes
+      await waitFor(() => {
+        expect(result.current.isLoading).toBe(false);
+      });
     });
   });
 
