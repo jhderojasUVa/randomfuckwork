@@ -15,62 +15,35 @@ echo "=========================================="
 echo ""
 
 # ============================================================================
-# STEP 1: Check if provider exists and what state it's in
+# STEP 1: Delete existing pool (and any provider it contains)
 # ============================================================================
-echo "Step 1: Checking provider state..."
+echo "Step 1: Cleaning up existing pool..."
 echo ""
 
-PROVIDER_EXISTS=$(gcloud iam workload-identity-pools providers list \
-  --project="$PROJECT_ID" \
-  --location=global \
-  --workload-identity-pool="$POOL_NAME" \
-  --format="value(name)" 2>/dev/null | grep -c "$PROVIDER_NAME" || echo "0")
-
-if [ "$PROVIDER_EXISTS" -eq "1" ]; then
-    echo "  ⚠ Provider exists but appears to be corrupted"
-    echo "  This happens when provider creation partially fails"
-    echo ""
-    echo "Step 2: Deleting corrupted provider..."
-    
-    # Delete the provider directly
-    gcloud iam workload-identity-pools providers delete "$PROVIDER_NAME" \
+# Check if pool exists and delete it
+if gcloud iam workload-identity-pools describe "$POOL_NAME" \
+    --project="$PROJECT_ID" \
+    --location=global &>/dev/null; then
+    echo "  ⚠ Existing pool found - deleting for fresh start..."
+    gcloud iam workload-identity-pools delete "$POOL_NAME" \
       --project="$PROJECT_ID" \
       --location=global \
-      --workload-identity-pool="$POOL_NAME" \
       --quiet
-    
-    echo "  ✓ Provider deleted"
+    echo "  ✓ Pool deleted"
     echo ""
-    echo "Step 3: Waiting for cleanup..."
+    echo "Step 2: Waiting for cleanup to propagate..."
     sleep 10
     echo "  ✓ Cleanup complete"
 else
-    echo "  ℹ Provider does not exist yet"
+    echo "  ℹ No existing pool found"
 fi
 
 # ============================================================================
 # STEP 2: Delete and recreate the entire pool (fresh start)
 # ============================================================================
 echo ""
-echo "Step 4: Recreating Workload Identity Pool..."
+echo "Step 3: Creating fresh Workload Identity Pool..."
 
-POOL_EXISTS=$(gcloud iam workload-identity-pools list \
-  --project="$PROJECT_ID" \
-  --location=global \
-  --format="value(name)" 2>/dev/null | grep -c "$POOL_NAME" || echo "0")
-
-if [ "$POOL_EXISTS" -eq "1" ]; then
-    echo "  Deleting existing pool..."
-    gcloud iam workload-identity-pools delete "$POOL_NAME" \
-      --project="$PROJECT_ID" \
-      --location=global \
-      --quiet
-    
-    echo "  Waiting for pool deletion..."
-    sleep 10
-fi
-
-echo "  Creating fresh pool..."
 gcloud iam workload-identity-pools create "$POOL_NAME" \
   --project="$PROJECT_ID" \
   --location=global \
@@ -82,7 +55,7 @@ echo "  ✓ Pool created"
 # STEP 3: Create provider with minimal configuration
 # ============================================================================
 echo ""
-echo "Step 5: Creating OIDC Provider with minimal config..."
+echo "Step 4: Creating OIDC Provider with minimal config..."
 
 # The key insight: use --attribute-mapping with ONLY valid GitHub OIDC claims
 # Valid claims from GitHub: sub, repository, repository_owner, ref, sha, run_id, etc.
@@ -102,7 +75,7 @@ echo "  ✓ Provider created"
 # STEP 4: Verify it worked
 # ============================================================================
 echo ""
-echo "Step 6: Verifying provider configuration..."
+echo "Step 5: Verifying provider configuration..."
 
 gcloud iam workload-identity-pools providers describe "$PROVIDER_NAME" \
   --project="$PROJECT_ID" \
@@ -139,7 +112,7 @@ echo "Completing Setup..."
 echo "=========================================="
 echo ""
 
-echo "Step 7: Creating service account..."
+echo "Step 6: Creating service account..."
 gcloud iam service-accounts create github-actions-sa \
   --project="$PROJECT_ID" \
   --display-name="GitHub Actions" 2>/dev/null || echo "  (already exists)"
@@ -147,7 +120,7 @@ gcloud iam service-accounts create github-actions-sa \
 echo "  ✓ Service account ready"
 
 echo ""
-echo "Step 8: Binding GitHub to service account..."
+echo "Step 7: Binding GitHub to service account..."
 gcloud iam service-accounts add-iam-policy-binding \
   "github-actions-sa@${PROJECT_ID}.iam.gserviceaccount.com" \
   --project="$PROJECT_ID" \
@@ -158,7 +131,7 @@ gcloud iam service-accounts add-iam-policy-binding \
 echo "  ✓ Binding complete"
 
 echo ""
-echo "Step 9: Granting GCS permissions..."
+echo "Step 8: Granting GCS permissions..."
 gsutil iam ch \
   "serviceAccount:github-actions-sa@${PROJECT_ID}.iam.gserviceaccount.com:objectCreator" \
   "gs://randomfuckwork-test-results-dev/" 2>/dev/null
