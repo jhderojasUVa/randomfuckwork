@@ -1,12 +1,28 @@
 # 🎯 ACTION REQUIRED - Complete Your Pipeline Setup
 
-## What You Need to Do Right Now
+## ⚡ Quick Path: Run the Master Setup Script
 
-Your CI/CD pipeline is **99% ready**. Only 1 critical step remains:
+Everything is automated now! Just run this one command:
 
-### ⚠️ CRITICAL: Install WSL-Native Google Cloud SDK
+```bash
+bash ./.github/workflows/MASTER_SETUP.sh
+```
 
-The Windows gcloud doesn't work in WSL. You MUST install the WSL version.
+This script will:
+1. ✅ Verify WSL gcloud is installed (install if needed)
+2. ✅ Create Workload Identity Pool and OIDC Provider
+3. ✅ Create Service Account
+4. ✅ Set GitHub Variables automatically (if `gh` CLI is installed)
+5. ✅ Grant all necessary permissions
+6. ✅ Show you exactly what to do next
+
+**Expected output:** All green checkmarks with final next steps displayed.
+
+---
+
+## Prerequisites: Install WSL-Native Google Cloud SDK
+
+The Windows gcloud doesn't work in WSL. You MUST install the WSL version first.
 
 Run these commands in your WSL terminal:
 
@@ -41,20 +57,15 @@ gcloud --version
 
 ---
 
-## After Installing gcloud:
+## Then Run the Master Setup Script
 
-Read the complete setup guide:
+Once gcloud is installed:
 
 ```bash
-cat .github/workflows/COMPLETE_SETUP_GUIDE.md
+bash ./.github/workflows/MASTER_SETUP.sh
 ```
 
-This 15-minute guide will walk you through:
-1. Creating the OIDC provider
-2. Extracting GCP configuration values
-3. Adding 3 variables to GitHub
-4. Granting service account permissions
-5. Triggering your first pipeline run
+That's it! The script handles everything else.
 
 ---
 
