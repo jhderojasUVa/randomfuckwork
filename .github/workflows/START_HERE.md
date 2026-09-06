@@ -57,15 +57,47 @@ gcloud --version
 
 ---
 
-## Then Run the Master Setup Script
+## Then Run One of These Setup Scripts
 
-Once gcloud is installed:
+Once gcloud is installed, choose one:
 
+### Option A: Master Setup Script (Recommended)
 ```bash
 bash ./.github/workflows/MASTER_SETUP.sh
 ```
 
-That's it! The script handles everything else.
+### Option B: If You Get "INVALID_ARGUMENT" Error
+If you get an error about "attribute condition must reference provider's claims", the WIF pool is corrupted. Run the recovery script:
+
+```bash
+bash ./.github/workflows/RECOVER_WIF_PROVIDER.sh
+```
+
+This script:
+1. Deletes the corrupted provider and pool
+2. Creates a fresh pool from scratch
+3. Creates the provider with correct configuration
+4. Grants all permissions
+5. Shows you the values to add to GitHub
+
+The recovery script is more aggressive but guarantees a clean state.
+
+---
+
+## After Running the Script
+
+You'll see output with 3 values to add to GitHub Variables:
+- `GCP_PROJECT_ID`
+- `GCP_WORKLOAD_IDENTITY_PROVIDER`
+- `GCP_SERVICE_ACCOUNT_EMAIL`
+
+Add them at:
+https://github.com/jhderojasUVa/randomfuckwork/settings/variables/actions
+
+Then trigger the pipeline:
+```bash
+git push origin main
+```
 
 ---
 
