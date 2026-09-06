@@ -150,38 +150,17 @@ jobs:
           fi
 
       # ========================================================================
-      # Step 6: Generate JUnit XML report (for CI integration)
+      # Step 6: Verify test results
       # ========================================================================
-      - name: 📄 Generate JUnit XML Report
+      - name: ✅ Verify test results
         if: always()
         continue-on-error: true
         run: |
-          # Install jest-junit reporter
-          npm install -g jest-junit 2>/dev/null || yarn add jest-junit 2>/dev/null || true
-          
-          # Note: In a production setup, you would typically configure jest-junit
-          # in your Jest configuration. For now, we create a placeholder
-          echo "Generating JUnit XML report..."
-          
-          # Create a basic JUnit XML structure from test results
           if [ -f test-reports/test-results.json ]; then
-            node -e "
-              const fs = require('fs');
-              const results = JSON.parse(fs.readFileSync('test-reports/test-results.json', 'utf8'));
-              const { numPassedTests, numFailedTests, numTotalTests } = results;
-              
-              const xml = \`<?xml version=\"1.0\" encoding=\"UTF-8\"?>
-<testsuites tests=\"\${numTotalTests}\" failures=\"\${numFailedTests}\" time=\"\${results.testResults.reduce((sum, t) => sum + (t.perfStats?.duration || 0), 0) / 1000}\">
-  <testsuite name=\"Jest Tests\" tests=\"\${numTotalTests}\" failures=\"\${numFailedTests}\" timestamp=\"\${new Date().toISOString()}\">
-    \${results.testResults.map(t => \`
-    <testcase classname=\"\${t.name}\" time=\"\${(t.perfStats?.duration || 0) / 1000}\" />
-    \`).join('')}
-  </testsuite>
-</testsuites>\`;
-              
-              fs.writeFileSync('test-reports/junit.xml', xml);
-              console.log('✅ JUnit XML report generated');
-            \"
+            echo "✅ Test results available at: test-reports/test-results.json"
+          fi
+          if [ -f coverage/lcov.info ]; then
+            echo "✅ Coverage report available at: coverage/"
           fi
 
       # ========================================================================
