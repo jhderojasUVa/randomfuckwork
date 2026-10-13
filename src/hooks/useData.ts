@@ -31,8 +31,14 @@ export const useData = (
 ) => {
   // Initialize data source from localStorage or provided initial value
   const [dataType, setDataType] = useState<DataType>(() => {
-    const saved = storageService.getDataSource(initialDataType);
-    return (saved as DataType) || initialDataType;
+    try {
+      const saved = storageService.getDataSource(initialDataType);
+      return (saved as DataType) || initialDataType;
+    } catch (error) {
+      // Gracefully fall back to initial data type if storage read fails
+      console.error('Failed to read data source from storage:', error);
+      return initialDataType;
+    }
   });
 
   const [data, setData] = useState<ArrayItem[]>([]);
@@ -65,12 +71,27 @@ export const useData = (
    * Toggles between Wikipedia and internal data sources
    * Automatically refetches data from new source
    * Persists preference to localStorage
+   *
+   * Uses functional state update form to avoid closure issues and ensure
+   * the state setter always receives the current state value. The empty
+   * dependency array is safe here because:
+   * 1. setDataType is a stable reference from useState
+   * 2. We use the functional form (prev) => newValue to access current state
+   * 3. This triggers the useEffect that depends on dataType
+   * 4. Component re-renders with updated dataSourceLabel
    */
   const toggleDataSource = useCallback((): void => {
-    setDataType((prev) => {
+    setDataType((currentDataType) => {
       const newType =
-        prev === DATA_TYPES.WIKIPEDIA ? DATA_TYPES.ARRAY : DATA_TYPES.WIKIPEDIA;
-      storageService.saveDataSource(newType);
+        currentDataType === DATA_TYPES.WIKIPEDIA
+          ? DATA_TYPES.ARRAY
+          : DATA_TYPES.WIKIPEDIA;
+      // Persist the new data source preference, but don't let storage errors block state updates
+      try {
+        storageService.saveDataSource(newType);
+      } catch (error) {
+        console.error('Failed to save data source preference:', error);
+      }
       return newType;
     });
   }, []);
@@ -87,7 +108,7 @@ export const useData = (
   // Fetch data on mount and when dataType changes
   useEffect(() => {
     void fetchData();
-  }, [dataType, fetchData]);
+  }, [dataType]);
 
   return {
     data,
